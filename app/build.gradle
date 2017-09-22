@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+    defaultConfig {
+        applicationId "jp.trackparty.android"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        vectorDrawables.useSupportLibrary = true
+    }
+    signingConfigs {
+        debug {
+            storeFile file("../debug.keystore")
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+
+            manifestPlaceholders = [
+                    onesignal_app_id: System.getenv("ONESIGNAL_APP_ID"),
+                    onesignal_google_project_number: System.getenv("ONESIGNAL_GOOGLE_PROJECT_NUMBER")
+            ]
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+ext {
+    googlePlayServicesVersion = "11.0.4"
+    supportLibraryVersion = "26.0.1"
+}
+
+dependencies {
+    compile project(':trackparty-api')
+    compile "com.android.support:support-v4:$supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:customtabs:$supportLibraryVersion"
+    compile "com.android.support:animated-vector-drawable:$supportLibraryVersion"
+    compile "com.google.android.gms:play-services-base:$googlePlayServicesVersion"
+    compile "com.google.android.gms:play-services-gcm:$googlePlayServicesVersion"
+    compile "com.google.android.gms:play-services-maps:$googlePlayServicesVersion"
+    compile "com.google.android.gms:play-services-location:$googlePlayServicesVersion"
+    compile 'com.google.android:flexbox:0.3.0'
+    compile 'com.github.renaudcerrato:static-maps-api:1.0.2'
+    compile 'com.github.bumptech.glide:glide:4.0.0'
+
+    compile 'io.github.yusukeiwaki.android-widget:widget-fontawesome:0.0.1'
+    compile 'io.github.yusukeiwaki.android-widget:widget-extras:0.0.1'
+    compile 'io.github.yusukeiwaki.realm-java-helpers:realm-java-helper-bolts:2.1.0'
+
+    compile 'com.facebook.stetho:stetho:1.5.0'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    compile('com.onesignal:OneSignal:[3.5.3,4.0.0)') {
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'customtabs'
+        exclude group: 'com.android.support', module: 'animated-vector-drawable'
+        exclude group: 'com.google.android.gms', module: 'play-services-gcm'
+        exclude group: 'com.google.android.gms', module: 'play-services-analytics'
+        exclude group: 'com.google.android.gms', module: 'play-services-location'
+    }
+}
+
+apply plugin: 'com.google.gms.google-services'

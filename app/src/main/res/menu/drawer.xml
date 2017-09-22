@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/main_items" android:checkableBehavior="none">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="ホーム"
+            />
+    </group>
+
+    <group android:id="@+id/misc_items" android:checkableBehavior="none">
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="設定"
+            />
+
+        <item
+            android:id="@+id/help"
+            android:icon="@drawable/ic_help_outline_black_24dp"
+            android:title="ヘルプ"
+            />
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="ログアウト"
+            />
+    </group>
+</menu>

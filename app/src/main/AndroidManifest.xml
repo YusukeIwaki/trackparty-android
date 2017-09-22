@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="jp.trackparty.android">
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Trackparty"
+        android:name="jp.trackparty.android.TrackpartyApplication">
+
+        <!-- EntryPoint -->
+        <activity android:name="jp.trackparty.android.entry.EntrypointActivity"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity-alias
+            android:name=".OneTimePasswordReceiverActivity"
+            android:targetActivity="jp.trackparty.android.entry.EntrypointActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="trackparty" android:pathPrefix="/one_time_password/" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity android:name="jp.trackparty.android.splash.SplashActivity"/>
+        <service android:name="jp.trackparty.android.splash.AuthTokenVerificationService" />
+
+        <!-- ServerConfig -->
+        <activity android:name="jp.trackparty.android.serverconfig.ServerConfigActivity" />
+
+        <!-- Login -->
+        <activity android:name="jp.trackparty.android.login.LoginActivity"/>
+        <service android:name="jp.trackparty.android.login.LoginService" />
+
+        <!-- Main -->
+        <activity android:name="jp.trackparty.android.main.MainActivity"/>
+        <service android:name="jp.trackparty.android.main.CurrentUserFetchService" />
+        <service android:name="jp.trackparty.android.main.LogoutService" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_api_key"/>
+
+        <!-- positioning -->
+        <activity
+            android:name="jp.trackparty.android.positioning.PositioningRequirementCheckAndStartPositioningActivity"
+            android:theme="@style/Theme.Trackparty.Translucent.NoTitleBar"/>
+        <service android:name="jp.trackparty.android.positioning.OneShotPositioningService"/>
+        <service android:name="jp.trackparty.android.positioning.PeriodecalPositioningService" />
+
+
+        <!-- TransportItem List -->
+        <activity
+            android:name="jp.trackparty.android.transport_item_list.TransportItemListActivity"/>
+
+        <service android:name="jp.trackparty.android.transport_item_list.TransportItemListService" />
+
+        <!-- Destination -->
+        <activity android:name="jp.trackparty.android.destination.DestinationDetailActivity" />
+        <service android:name="jp.trackparty.android.destination.DestinationDetailService" />
+
+        <!-- Background Fetch -->
+        <service android:name="jp.trackparty.android.background_fetch.BackgroundFetchService"
+            android:exported="true"
+            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
+            <intent-filter>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
+            </intent-filter>
+        </service>
+
+        <!-- OneSignal -->
+        <service
+            android:name="jp.trackparty.android.onesignal.OneSignalNotificationExtenderService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
+        <meta-data android:name="com.onesignal.NotificationAccentColor.DEFAULT" android:value="FF007aff" />
+
+        <!-- Location Upload -->
+        <service android:name="jp.trackparty.android.location_upload.LocationUploadService" />
+
+        <!-- Arrival -->
+        <activity android:name="jp.trackparty.android.arrival.ArrivalActivity" />
+
+    </application>
+
+</manifest>

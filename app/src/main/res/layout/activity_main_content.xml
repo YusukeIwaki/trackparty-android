@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="ongoingTransportItem"
+            type="jp.trackparty.android.data.realm.TransportItem"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <fragment
+            android:id="@+id/google_map"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            map:cameraTargetLat="35.6811673"
+            map:cameraTargetLng="139.7648629"
+            map:cameraZoom="16"
+            map:mapType="normal"
+            map:uiCompass="false"
+            map:uiRotateGestures="false"
+            map:uiScrollGestures="true"
+            map:uiTiltGestures="false"
+            map:uiZoomControls="false"
+            map:uiZoomGestures="true"
+            />
+
+        <FrameLayout
+            android:id="@+id/btn_positioning_now_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:fitsSystemWindows="true"
+            android:layout_gravity="end|top">
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btn_positioning_now"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/ic_my_location_black_48dp"
+                app:backgroundTint="#999"
+                android:foreground="?attr/selectableItemBackground"
+                android:elevation="8dp"
+                android:alpha="0.8" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_reset_to_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|start"
+            android:layout_marginBottom="88dp"
+            android:layout_marginStart="8dp"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible">
+            <io.github.yusukeiwaki.android.widget.FontAwesomeTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/fa_arrow_left"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="現在地に戻る"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:elevation="8dp"
+            android:visibility="@{ongoingTransportItem != null ? View.GONE : View.VISIBLE}">
+            <TextView
+                android:id="@+id/btn_select_transport_item"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:text="目的地を選択"
+                android:textAppearance="@style/TextAppearance.Trackparty.Button"
+                android:textColor="?android:attr/textColorLink"
+                android:background="?attr/selectableItemBackground"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="true"
+            android:elevation="8dp"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_peekHeight="80dp"
+            app:behavior_hideable="false"
+            android:visibility="@{ongoingTransportItem != null ? View.VISIBLE : View.GONE}">
+
+            <LinearLayout
+                android:id="@+id/ongoing_transport_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/btn_show_destination_detail"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:background="?attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.Trackparty.Title"
+                            android:lineSpacingMultiplier="1.2"
+                            android:text="@{ongoingTransportItem.destination.name}"
+                            tools:text="オーケー溝の口店"/>
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="12dp" />
+                        <TextView
+                            android:id="@+id/txt_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.Trackparty.Body1"
+                            android:text="@{ongoingTransportItem.destination.address}"
+                            tools:text="川崎市高津区下作延１２３−４５"/>
+                    </LinearLayout>
+                    <io.github.yusukeiwaki.android.widget.FontAwesomeTextView
+                        android:layout_width="36dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="@string/fa_angle_right"
+                        android:textSize="24dp"
+                        android:textColor="?android:attr/textColorSecondary"/>
+                </LinearLayout>
+
+                <io.github.yusukeiwaki.android.widget.DividerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    app:flexWrap="wrap">
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab_arrived"
+                        android:layout_width="88dp"
+                        android:layout_height="88dp"
+                        android:layout_margin="12dp"
+                        android:src="@drawable/ic_fab_arrive"
+                        app:backgroundTint="@color/btn_color_arrived"/>
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab_rest"
+                        android:layout_width="88dp"
+                        android:layout_height="88dp"
+                        android:layout_margin="12dp"
+                        android:src="@drawable/ic_fab_rest"
+                        app:backgroundTint="@color/btn_color_rest"/>
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab_waiting"
+                        android:layout_width="88dp"
+                        android:layout_height="88dp"
+                        android:layout_margin="12dp"
+                        android:src="@drawable/ic_fab_waiting"
+                        app:backgroundTint="@color/btn_color_waiting"/>
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab_running"
+                        android:layout_width="88dp"
+                        android:layout_height="88dp"
+                        android:layout_margin="12dp"
+                        android:src="@drawable/ic_fab_running"
+                        app:backgroundTint="@color/btn_color_running"/>
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fab_misc"
+                        android:layout_width="88dp"
+                        android:layout_height="88dp"
+                        android:layout_margin="12dp"
+                        android:src="@drawable/ic_fab_misc"
+                        app:backgroundTint="@color/btn_color_misc"/>
+                </com.google.android.flexbox.FlexboxLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_wait_for_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_margin="48dp"
+                android:textAppearance="@style/TextAppearance.Trackparty.Caption"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:text="通信中です。\nしばらくお待ちください..." />
+
+            <TextView
+                android:id="@+id/btn_ongoing_transport_item"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@{ongoingTransportItem.destination.name}"
+                android:textAppearance="@style/TextAppearance.Trackparty.Button"
+                android:textColor="?android:attr/textColorLink"
+                android:background="?attr/selectableItemBackground" />
+
+        </FrameLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

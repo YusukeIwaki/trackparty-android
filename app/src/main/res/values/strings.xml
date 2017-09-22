@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Trackparty</string>
+
+    <string name="requirement_check_failure_googleplay">Google Playサービスに接続できません</string>
+    <string name="requirement_check_failure_location_setting">位置情報の設定が有効になっていません</string>
+    <string name="requirement_check_failure_location_permission">パーミッションを許可しないとこのアプリは使えません</string>
+</resources>

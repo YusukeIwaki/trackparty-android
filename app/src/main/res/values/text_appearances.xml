@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.Trackparty" parent="TextAppearance.AppCompat" >
+
+    </style>
+
+    <style name="TextAppearance.Trackparty.Body1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.Trackparty.Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.Trackparty.Button" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextAppearance.Trackparty.Caption" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Trackparty.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextAppearance.Trackparty.Subhead" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextAppearance.Trackparty.Display1" parent="TextAppearance.AppCompat.Display1">
+
+    </style>
+
+    <style name="TextAppearance.Trackparty.Display2" parent="TextAppearance.AppCompat.Display2">
+
+    </style>
+
+    <style name="TextAppearance.Trackparty.Display3" parent="TextAppearance.AppCompat.Display3">
+
+    </style>
+
+    <style name="TextAppearance.Trackparty.Display4" parent="TextAppearance.AppCompat.Display4">
+
+    </style>
+
+    <style name="TextAppearance.Trackparty.Headline" parent="TextAppearance.AppCompat.Headline">
+
+    </style>
+
+</resources>
